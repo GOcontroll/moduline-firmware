@@ -1,0 +1,12 @@
+Source: moduline-firmware
+Section: misc
+Priority: optional
+Maintainer: Maud Spierings <maudspierings@gocontroll.com>
+Build-Depends: debhelper-compat (= 13)
+
+Package: firmware-linux-gocontroll
+Architecture: all
+Section: misc
+Replaces: firmware-linux
+Breaks: firmware-linux
+Description: Firmware required on the GOcontroll Moduline controllers
