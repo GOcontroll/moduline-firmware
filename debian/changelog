@@ -1,3 +1,9 @@
+moduline-firmware (0.2) unstable; urgency=medium
+
+  * Added 10 Channel Input module hardware version 6 firmware
+
+ -- Maud Spierings <maudspierings@gocontroll.com>  Fri, 20 Jun 2025 10:56:24 +0200
+
 moduline-firmware (0.1) unstable; urgency=medium
 
   [ Maud Spierings ]

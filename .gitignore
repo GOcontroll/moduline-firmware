@@ -1,2 +1,4 @@
-debian/firmware-linux-gocontroll
+debian/firmware-linux-gocontroll*
 debian/.debhelper
+debian/debhelper-build-stamp
+debian/files
