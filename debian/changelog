@@ -1,3 +1,10 @@
+moduline-firmware (0.3) unstable; urgency=medium
+
+  * Updated 6 channel output module hardware version 7 firmware, fixes an
+    issue with groundshift oversensitivity
+
+ -- Maud Spierings <maudspierings@gocontroll.com>  Wed, 02 Jul 2025 10:34:06 +0200
+
 moduline-firmware (0.2) unstable; urgency=medium
 
   * Added 10 Channel Input module hardware version 6 firmware
