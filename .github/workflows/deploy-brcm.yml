@@ -1,0 +1,46 @@
+name: Deploy brcm firmware to R2
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Read version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Generate manifest
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          UPDATED=$(date -u +%Y-%m-%d)
+          FILES=$(ls firmware/brcm/ | jq -R . | jq -s .)
+          jq -n \
+            --arg updated "$UPDATED" \
+            --arg version "$VERSION" \
+            --argjson files "$FILES" \
+            '{"updated": $updated, "version": $version, "files": $files}' \
+            > manifest.json
+          cat manifest.json
+
+      - name: Deploy to Cloudflare R2
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          ENDPOINT: https://${{ secrets.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        run: |
+          aws s3 sync firmware/brcm/ s3://${{ secrets.R2_BUCKET_NAME }}/brcm/ \
+            --endpoint-url "$ENDPOINT" \
+            --no-progress
+
+          aws s3 cp manifest.json s3://${{ secrets.R2_BUCKET_NAME }}/brcm/manifest.json \
+            --endpoint-url "$ENDPOINT" \
+            --content-type application/json
