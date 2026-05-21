@@ -59,7 +59,7 @@ fdss_level_5g=2
 ## added by apps
 aga0=0x1
 agbg0=0x1
-ccode=0
+ccode=NL
 ed_thresh2g=-65
 ed_thresh5g=-65
 ltecxmux=0
