@@ -1,0 +1,9 @@
+{
+  "name": "gocontroll-firmware",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/worker.test.mjs",
+    "deploy": "npm test && npx --yes wrangler@4 deploy"
+  }
+}

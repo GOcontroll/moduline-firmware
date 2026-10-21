@@ -1,0 +1,22 @@
+name = "gocontroll-firmware"
+main = "src/index.js"
+compatibility_date = "2026-06-01"
+
+# Public, read-only view of the R2 bucket gocontroll-firmware on firmware.gocontroll.tech.
+# firmware.gocontroll.com is NOT a route of this Worker: it is an R2 custom domain on the same bucket
+# (R2 → gocontroll-firmware → Settings → Custom Domains) and keeps working on its own. Both hostnames
+# stay up side by side until no controller, app or image build asks for firmware.gocontroll.com.
+# No workers.dev URL and no preview URLs: firmware.gocontroll.tech is the only way in.
+workers_dev = false
+preview_urls = false
+routes = [
+  { pattern = "firmware.gocontroll.tech", custom_domain = true },
+]
+
+# The Worker only calls head() and get() on this binding.
+[[r2_buckets]]
+binding = "FIRMWARE_BUCKET"
+bucket_name = "gocontroll-firmware"
+
+[observability]
+enabled = true
