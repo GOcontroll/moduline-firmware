@@ -24,9 +24,12 @@ client uses that. The contract (paths, manifest format, which client reads what)
 - No listing, no index page: the root, a path ending in `/` and any missing key are 404.
   Every other method is 405.
 
-Publishing does not change: the module repos (`.github/workflows/publish-firmware.yml`) and this
-repo (`.github/workflows/deploy-brcm.yml`) write to the bucket over the S3 API, and an object is on
-both hostnames as soon as it is in the bucket. The manifests hold paths relative to the host
+Publishing does not go through this Worker: the module repos (`.github/workflows/publish-firmware.yml`)
+and this repo (`.github/workflows/deploy-brcm.yml`) write to the bucket over the S3 API, and since
+2026-10-28 the intranet app Deploy (`deploy.gocontroll.tools`, tab *Firmware*, R2 binding
+`FIRMWARE_BUCKET`) writes module firmware the way `publish_firmware.py` does
+(`GOcontroll-Team/GOcontroll-Deploy/README.md` → *Module firmware*). An object is on both hostnames
+as soon as it is in the bucket. The manifests hold paths relative to the host
 (`modules/<id>/manifest.json`, `modules/<id>/<file>.srec`, `brcm/<file>`), so they are the same on
 both hosts.
 

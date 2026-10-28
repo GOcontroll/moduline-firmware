@@ -2,9 +2,10 @@
 //
 // firmware.gocontroll.com is an R2 custom domain on the same bucket. During the move of device
 // traffic to gocontroll.tech both hostnames serve the same objects, byte for byte, so controllers,
-// the app and image builds can switch host one at a time. Publishing is unchanged: the module
-// repos and moduline-firmware write to the bucket over the S3 API, and an object is on both
-// hostnames as soon as it is in the bucket.
+// the app and image builds can switch host one at a time. Publishing does not go through here: the
+// module repos and moduline-firmware write to the bucket over the S3 API, Deploy
+// (deploy.gocontroll.tools) through its R2 binding, and an object is on both hostnames as soon as
+// it is in the bucket.
 //
 // Behaviour mirrors the R2 custom domain: GET and HEAD of an object key, ETag / Last-Modified /
 // Content-Type from the object, conditional requests (304/412) and byte ranges (206). There is no
